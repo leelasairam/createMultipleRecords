@@ -12,14 +12,18 @@ export default class CustomLookup extends LightningElement {
     @track selectedRecord;
     searchTerm = '';
     showDropdown = false;
+    timeoutId;
 
     handleInputChange(event) {
-        this.searchTerm = event.target.value;
+        clearTimeout(this.timeoutId);
+        this.searchTerm = event.target.value.replace(/'/g, "");;
         if (this.searchTerm.length >= 3) {
             const query = `SELECT ${this.fields} FROM ${this.objectApiName} WHERE ${this.searchableField} LIKE '%${this.searchTerm}%' ${this.additionalFilter}`;
             console.log(query);
-            searchRecords({q:query})
+            this.timeoutId = setTimeout(()=>{
+                searchRecords({q:query})
                 .then(data => {
+                    console.log('called..');
                     if(data.length>0){
                         const nameField = this.getUpdatedName(data[0]);
                         if(nameField){
@@ -38,6 +42,7 @@ export default class CustomLookup extends LightningElement {
                 .catch(error => {
                     console.error(error);
                 });
+            },500)
         } 
         else {
             this.searchResults = [];
