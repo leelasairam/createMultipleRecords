@@ -1,0 +1,28 @@
+.lookup-container {
+    position: relative;
+}
+
+.lookup-container ul {
+    background: white;
+    border: 1px solid #d8dde6;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.clear-icon {
+    position: absolute;
+    top: 25px; /* adjust for your lightning-input label height */
+    right: 10px;
+    z-index: 2;
+    background: white;
+    border-radius: 50%;
+}
+
+:host {
+        --sds-c-input-color-background: rgb(254, 255, 237);
+    }

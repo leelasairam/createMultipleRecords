@@ -1,0 +1,28 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+.table-container{
+    overflow: auto;
+    width: 100%; 
+    min-width: 300px;
+    height: 240px;
+}
+
+.table-container th{
+    position: sticky;
+    top: 0;
+    background: rgb(228, 228, 228);
+    z-index: 1;
+}
+
+.table-container lightning-input, .table-container lightning-combobox{
+    width: 120px;
+    min-width: 60px;
+}
+
+.card-footer lightning-button{
+    margin-right: 0.4rem;
+}

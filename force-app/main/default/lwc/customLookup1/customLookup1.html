@@ -1,0 +1,36 @@
+<template>
+    <div class="lookup-container">
+        <lightning-input
+            value={selectedRecord}
+            onchange={handleInputChange}
+            disabled={selectedRecord}
+            style="width: 120px;"
+            >
+        </lightning-input>
+
+        <template if:true={selectedRecord}>
+            <lightning-button-icon
+                icon-name="utility:close"
+                size="xx-small"
+                alternative-text="Clear"
+                onclick={handleClear}
+                class="clear-icon">
+            </lightning-button-icon>
+        </template>
+
+        <!-- Dropdown Search Results -->
+        <template if:true={showDropdown}>
+            <ul class="slds-box slds-m-top_xx-small" style="list-style:none; padding:0;">
+                <template for:each={searchResults} for:item="record">
+                    <li key={record.Id}
+                        data-id={record.Id}
+                        data-name={record.Name}
+                        onclick={handleSelect}
+                        class="slds-p-around_x-small slds-var-p-around_x-small slds-border_bottom">
+                        {record.Name}
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </div>
+</template>

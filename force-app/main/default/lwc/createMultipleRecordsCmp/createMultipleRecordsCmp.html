@@ -1,0 +1,48 @@
+<template>
+
+    <lightning-card>
+        <p slot="title"><lightning-icon icon-name="action:add_contact" size="small"></lightning-icon> &nbsp; Add Contacts</p>
+        <lightning-button label="New" slot="actions" onclick={addRow} variant="brand"></lightning-button>
+        <div class="table-container slds-p-horizontal_small">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Lead Source</th>
+                        <th>Owner</th>
+                        <th>_action</th>
+                    </tr>
+                    <template for:each={contacts} for:item="contact">
+                        <tr key={contact.RowId}>
+                            <td><lightning-input type="text" name="FirstName" value={contact.FirstName}
+                                    onchange={handleInpChange} data-row={contact.RowId}></lightning-input></td>
+                            <td><lightning-input type="text" name="LastName" value={contact.LastName} onchange={handleInpChange}
+                                    data-row={contact.RowId}></lightning-input></td>
+                            <td><lightning-input type="email" name="Email" value={contact.Email} onchange={handleInpChange}
+                                    data-row={contact.RowId}></lightning-input></td>
+                            <td><lightning-input type="phone" name="Phone" value={contact.Phone} onchange={handleInpChange}
+                                    data-row={contact.RowId}></lightning-input></td>
+                            <td><lightning-combobox  name="LeadSource" value={contact.LeadSource} onchange={handleInpChange}
+                                   options={comboboxOptions.LeadSource} data-row={contact.RowId}></lightning-combobox></td>
+                            <td><c-custom-lookup1 fields="Id,Name" additional-filter="AND IsActive = true"
+                                    object-api-name="User" searchable-field="Name" index={contact.RowId} field-name="OwnerId"
+                                    onlookupselected={handleLookupSelection}>
+                                </c-custom-lookup1></td>
+                            <td><lightning-button-icon onclick={removeRow} data-row={contact.RowId}
+                                    icon-name="utility:delete"></lightning-button-icon></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <div slot="footer" class="card-footer">
+            <lightning-button label="Save" variant="brand" onclick={save}></lightning-button>
+            <lightning-button label="Reset" variant="destructive-text" onclick={reset}></lightning-button>
+        </div>
+    </lightning-card>
+
+</template>
