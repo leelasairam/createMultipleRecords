@@ -1,8 +1,9 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement,track,api } from 'lwc';
 import getPickListValueLWC from '@salesforce/apex/PicklistValuesLightningController.getPickListValueLWC';
 
 export default class CreateMultipleRecordsCmp extends LightningElement {
     @track contacts = [];
+    @api recordId;
     rowCount = 0;
     @track comboboxOptions={LeadSource:[]};
 
@@ -63,7 +64,7 @@ export default class CreateMultipleRecordsCmp extends LightningElement {
         const rowsToSave = [];
         this.contacts.forEach(contact=>{
             const{RowId,...updatedContact} = contact;
-            rowsToSave.push(updatedContact);
+            rowsToSave.push({...updatedContact,AccountId:this.recordId ?? null});
         })
         console.log("Rows to Save",JSON.stringify(rowsToSave));
     }
